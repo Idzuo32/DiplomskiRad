@@ -26,9 +26,9 @@ public class ObjectPool : MonoBehaviour
 
     void Expand(int count)
     {
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
-            GameObject obj = Instantiate(prefab, transform);
+            var obj = Instantiate(prefab, transform);
             obj.SetActive(false);
             pool.Enqueue(obj);
         }
@@ -42,7 +42,7 @@ public class ObjectPool : MonoBehaviour
             Expand(1);
         }
 
-        GameObject obj = pool.Dequeue();
+        var obj = pool.Dequeue();
         obj.SetActive(true);
         obj.GetComponent<IPoolable>()?.OnSpawn();
         return obj;

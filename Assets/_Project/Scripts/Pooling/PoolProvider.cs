@@ -23,31 +23,27 @@ public class PoolProvider : Singleton<PoolProvider> {
 
         base.Awake();
         foreach (var entry in pools) {
-            GameObject poolObj = new GameObject($"Pool_{entry.id}");
-            poolObj.transform.SetParent(transform);
-            ObjectPool pool = poolObj.AddComponent<ObjectPool>();
+            var obj = new GameObject($"Pool_{entry.id}");
+            obj.transform.SetParent(transform);
+            var pool = obj.AddComponent<ObjectPool>();
             pool.GetType().GetField("prefab", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pool, entry.prefab);
             pool.GetType().GetField("initialSize", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pool, entry.initialSize);
             poolDictionary[entry.id] = pool;
         }
     }
-
-
+  
     public GameObject Get(string id) {
-        if (!poolDictionary.ContainsKey(id)) {
-            Debug.LogError($"No pool found with id {id}");
-            return null;
-        }
-        return poolDictionary[id].Get();
+      if (poolDictionary.TryGetValue(id, out var value)) return value.Get();
+      Debug.LogError($"No pool found with id {id}");
+        return null;
     }
 
-
     public void Release(string id, GameObject obj) {
-        if (!poolDictionary.ContainsKey(id)) {
+        if (!poolDictionary.TryGetValue(id, out var value)) {
             Debug.LogError($"No pool found with id {id}");
             Destroy(obj);
             return;
         }
-        poolDictionary[id].Release(obj);
+        value.Release(obj);
     }
 }
