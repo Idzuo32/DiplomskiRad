@@ -4,55 +4,79 @@ using UnityEngine;
 
 public interface IPoolable
 {
-    void OnSpawn();
-    void OnDespawn();
+  void OnPool();
+  void OnRelease();
 }
 
 
 public class ObjectPool : MonoBehaviour
 {
-    [SerializeField] GameObject prefab;
-    [SerializeField] int initialSize = 10;
+  [SerializeField] GameObject prefabToPool;
+  [SerializeField] int initialSize = 10;
 
 
-    readonly Queue<GameObject> pool = new();
+  readonly Queue<GameObject> pool = new();
 
 
-    void Awake()
+  public void Initialize()
+  {
+    ExpandPool(initialSize);
+  }
+
+
+  void ExpandPool(int count)
+  {
+    for (var i = 0; i < count; i++)
     {
-        Expand(initialSize);
+      ProcessPoolExpansion();
     }
+  }
+
+  void ProcessPoolExpansion()
+  {
+    var instantiatedGameObject = Instantiate(prefabToPool, transform);
+    instantiatedGameObject.SetActive(false);
+    pool.Enqueue(instantiatedGameObject);
+  }
 
 
-    void Expand(int count)
+  public GameObject Pool()
+  {
+    ExpandPoolIfEmpty();
+    return ProcessedPool();
+  }
+
+  void ExpandPoolIfEmpty()
+  {
+    if (pool.Count == 0)
     {
-        for (var i = 0; i < count; i++)
-        {
-            var obj = Instantiate(prefab, transform);
-            obj.SetActive(false);
-            pool.Enqueue(obj);
-        }
+      ExpandPool(1);
     }
+  }
+
+  GameObject ProcessedPool()
+  {
+    var pooledGameObject = pool.Dequeue();
+    pooledGameObject.SetActive(true);
+    HandlePool(pooledGameObject);
+    return pooledGameObject;
+  }
+
+  void HandlePool(GameObject pooledGameObject)
+  {
+    pooledGameObject.GetComponent<IPoolable>()?.OnPool();
+  }
+
+  public void Release(GameObject pooledGameObject)
+  {
+    HandleRelease(pooledGameObject);
+    pooledGameObject.SetActive(false);
+    pool.Enqueue(pooledGameObject);
+  }
 
 
-    public GameObject Get()
-    {
-        if (pool.Count == 0)
-        {
-            Expand(1);
-        }
-
-        var obj = pool.Dequeue();
-        obj.SetActive(true);
-        obj.GetComponent<IPoolable>()?.OnSpawn();
-        return obj;
-    }
-
-
-    public void Release(GameObject obj)
-    {
-        obj.GetComponent<IPoolable>()?.OnDespawn();
-        obj.SetActive(false);
-        pool.Enqueue(obj);
-    }
+  static void HandleRelease(GameObject pooledGameObject)
+  {
+    pooledGameObject.GetComponent<IPoolable>()?.OnRelease();
+  }
 }

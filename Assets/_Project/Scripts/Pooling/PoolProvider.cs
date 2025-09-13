@@ -1,49 +1,56 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utilities;
 
 
-public class PoolProvider : Singleton<PoolProvider> {
-    
-    [System.Serializable]
-    public class PoolEntry {
-        public string id;
-        public GameObject prefab;
-        public int initialSize = 10;
+public class PoolProvider : Singleton<PoolProvider>
+{
+  [System.Serializable]
+  public class PoolData
+  {
+    public string id;
+    public ObjectPool objectPool;
+  }
+
+
+  [SerializeField] List<PoolData> pools = new();
+
+
+  readonly Dictionary<string, ObjectPool> poolDictionary = new();
+
+
+  protected override void Awake()
+  {
+    base.Awake();
+    InitializePools();
+  }
+
+  void InitializePools()
+  {
+    foreach (var pool in pools.Where(pool => pool.objectPool))
+    {
+      pool.objectPool.Initialize();
+      poolDictionary[pool.id] = pool.objectPool;
     }
+  }
 
+  public GameObject Pool(string id)
+  {
+    if (poolDictionary.TryGetValue(id, out var value)) return value.Pool();
+    Debug.LogError($"No pool found with id {id}");
+    return null;
+  }
 
-    [SerializeField] List<PoolEntry> pools = new();
-
-
-    readonly Dictionary<string, ObjectPool> poolDictionary = new();
-
-
-    protected override void Awake() {
-
-        base.Awake();
-        foreach (var entry in pools) {
-            var obj = new GameObject($"Pool_{entry.id}");
-            obj.transform.SetParent(transform);
-            var pool = obj.AddComponent<ObjectPool>();
-            pool.GetType().GetField("prefab", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pool, entry.prefab);
-            pool.GetType().GetField("initialSize", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)?.SetValue(pool, entry.initialSize);
-            poolDictionary[entry.id] = pool;
-        }
-    }
-  
-    public GameObject Get(string id) {
-      if (poolDictionary.TryGetValue(id, out var value)) return value.Get();
+  public void Release(string id, GameObject pooledGameObject)
+  {
+    if (!poolDictionary.TryGetValue(id, out var value))
+    {
       Debug.LogError($"No pool found with id {id}");
-        return null;
+      Destroy(pooledGameObject);
+      return;
     }
 
-    public void Release(string id, GameObject obj) {
-        if (!poolDictionary.TryGetValue(id, out var value)) {
-            Debug.LogError($"No pool found with id {id}");
-            Destroy(obj);
-            return;
-        }
-        value.Release(obj);
-    }
+    value.Release(pooledGameObject);
+  }
 }
