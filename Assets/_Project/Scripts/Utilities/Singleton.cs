@@ -25,7 +25,7 @@ namespace Utilities
         /// <summary>
         /// Make sure to call base.Awake() in override if you need awake.
         /// </summary>
-        protected virtual void Awake() {
+        protected virtual void OnEnable() {
             InitializeSingleton();
         }
 

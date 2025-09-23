@@ -17,6 +17,7 @@ public static class ProjectSetup {
         Assets.ImportAsset("Better Hierarchy.unitypackage", "Toaster Head/Editor ExtensionsUtilities");
         Assets.ImportAsset("Selection History.unitypackage", "Staggart Creations/Editor ExtensionsUtilities");
         Assets.ImportAsset("Editor Auto Save.unitypackage", "IntenseNation/Editor ExtensionsUtilities");
+        Assets.ImportAsset("vFolders.unitypackage", "Common");
         //Assets.ImportAsset("Beautify_3_Advanced Post Processing.unitypackage", "Common");
         //Assets.ImportAsset("Asset Cleaner PRO.unitypackage", "Common");
         Assets.ImportAsset("SuperPivot.unitypackage", "Common");
@@ -40,15 +41,25 @@ public static class ProjectSetup {
 
     [MenuItem("Tools/Setup/Create Folders")]
     public static void CreateFolders() {
-        Folders.Create("_Project","Animation", "Models", "Prefabs", "Materials", "Textures");
+        Folders.Create("_Project");
         Refresh();
         Folders.Move("_Project", "Scenes");
-        Folders.Move("_Project", "Settings");
         Folders.Move("_Project", "Scripts");
+        Folders.Move("_Project", "Settings");
+        Folders.Move("_Project", "Animations");
+        Folders.Move("_Project", "Audio");
+        Folders.Move("_Project", "Images");
+        Folders.Move("_Project", "Input");
+        Folders.Move("_Project", "Materials");
+        Folders.Move("_Project", "Models");
+        Folders.Move("_Project", "Physics Materials");
+        Folders.Move("_Project", "Prefabs");
+        
+        
         Folders.Delete("TutorialInfo");
         Refresh();
 
-        MoveAsset("Assets/InputSystem_Actions.inputactions", "Assets/_Project/Settings/InputSystem_Actions.inputactions");
+        //MoveAsset("Assets/InputSystem_Actions.inputactions", "Assets/_Project/Settings/InputSystem_Actions.inputactions");
         DeleteAsset("Assets/Readme.asset");
         Refresh();
         
