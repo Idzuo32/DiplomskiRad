@@ -1,11 +1,11 @@
 using UnityEngine.InputSystem;
 using System;
 using UnityEngine;
+using Utilities;
 
 namespace Managers {
-  public class InputManager : MonoBehaviour, PlayerControls.IPlayerActions {
+  public class InputManager : Singleton<InputManager>, PlayerControls.IPlayerActions {
 
-    public static InputManager Instance { get; private set; }
 
     public event Action<Vector2> MoveEvent;
     public event Action JumpEvent;
@@ -14,12 +14,9 @@ namespace Managers {
     public event Action MenuOpenCloseEvent;
 
     PlayerControls controls;
-    
-    void Awake() {
-      if ( Instance != null ) { Destroy(gameObject); return; }
-      Instance = this;
-      DontDestroyOnLoad(gameObject);
 
+    protected override void OnEnable() {
+      base.OnEnable();
       controls = new PlayerControls();
       controls.Player.SetCallbacks(this);
       controls.Player.Enable();

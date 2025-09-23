@@ -1,6 +1,5 @@
 using Managers;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Player {
   [RequireComponent(typeof(Rigidbody))]

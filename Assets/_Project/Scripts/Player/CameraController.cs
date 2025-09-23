@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Player
 {
-    public class CameraController : MonoBehaviour
+  [RequireComponent(typeof(CinemachineCamera))]
+  public class CameraController : MonoBehaviour
     {
         [SerializeField] ParticleSystem speedupParticleSystem;
         [SerializeField] float minFOV = 20f;
