@@ -1,4 +1,5 @@
 using UnityEngine;
+using Managers;
 
 namespace ProceduralGeneration
 {
@@ -6,7 +7,7 @@ namespace ProceduralGeneration
     {
         void OnTriggerEnter(Collider other) 
         {
-            Destroy(other.gameObject);    
+            PoolManager.Release(other.gameObject);
         }
     }
 }

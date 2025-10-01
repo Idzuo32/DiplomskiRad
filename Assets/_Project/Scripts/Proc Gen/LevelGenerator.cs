@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Managers;
 using Player;
 using UnityEngine;
+using Pooling;
 using Random = UnityEngine.Random;
 
 namespace ProceduralGeneration {
@@ -85,7 +86,7 @@ namespace ProceduralGeneration {
       var spawnPositionZ = CalculateSpawnPositionZ();
       var chunkSpawnPos = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
       var chunkToSpawn = ChooseChunkToSpawn();
-      var newChunkGo = Instantiate(chunkToSpawn, chunkSpawnPos, Quaternion.identity, chunkParent);
+      var newChunkGo = PoolManager.Get(chunkToSpawn, chunkSpawnPos, Quaternion.identity, chunkParent);
       _chunks.Add(newChunkGo);
       var newChunk = newChunkGo.GetComponent<Chunk>();
       _chunksSpawned++;
@@ -122,7 +123,7 @@ namespace ProceduralGeneration {
 
         if ( !(chunk.transform.position.z <= _camera.transform.position.z - chunkLength) ) continue;
         _chunks.Remove(chunk);
-        Destroy(chunk);
+        PoolManager.Release(chunk);
         SpawnChunk();
       }
     }

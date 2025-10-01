@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7092780100447732762}
   - component: {fileID: -3874630061264100908}
   - component: {fileID: -3150597839113655498}
+  - component: {fileID: 5110099675318079494}
   m_Layer: 0
   m_Name: Coin Pickup
   m_TagString: Untagged
@@ -72,6 +73,18 @@ MonoBehaviour:
   rotationSpeed: 100
   scoreAmount: 100
   coinSound: {fileID: 8300000, guid: c7ef898f3b2151e40992fc7e0636fa85, type: 3}
+--- !u!114 &5110099675318079494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819300812737920837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da170262a004ba78552a0e11a4dc70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pooling.PooledObject
 --- !u!1 &6615308294243206003
 GameObject:
   m_ObjectHideFlags: 0

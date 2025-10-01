@@ -1,4 +1,5 @@
 using UnityEngine;
+using Managers;
 
 namespace Pickups
 {
@@ -18,7 +19,7 @@ namespace Pickups
             if (other.CompareTag(PlayerString)) 
             {
                 OnPickup();   
-                Destroy(gameObject);
+                PoolManager.Release(gameObject);
             }
         }
 

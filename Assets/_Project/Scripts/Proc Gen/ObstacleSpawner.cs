@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Managers;
 
 namespace ProceduralGeneration
 {
@@ -35,7 +36,10 @@ namespace ProceduralGeneration
                 var obstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
                 var spawnPosition = new Vector3(Random.Range(-spawnWidth, spawnWidth), transform.position.y, transform.position.z);
                 yield return new WaitForSeconds(obstacleSpawnTime);
-                Instantiate(obstaclePrefab, spawnPosition, Random.rotation, obstacleParent);
+                var pooledObstacle = PoolManager.Get(obstaclePrefab, spawnPosition, Random.rotation, obstacleParent);
+                var obstacleRb = pooledObstacle.GetComponent<Rigidbody>();
+                obstacleRb.linearVelocity = Vector3.zero;
+                obstacleRb.angularVelocity = Vector3.zero;
             }
         }
     }

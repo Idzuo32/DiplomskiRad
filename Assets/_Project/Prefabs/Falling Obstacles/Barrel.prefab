@@ -145,6 +145,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3388136647974101693, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3657591877476559270}
+    - targetCorrespondingSourceObject: {fileID: 3388136647974101693, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2686059991954681120}
   m_SourcePrefab: {fileID: 100100000, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
 --- !u!4 &1956914734565374570 stripped
 Transform:
@@ -193,3 +196,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleSound: {fileID: 8300000, guid: f7d132a23472c9b48a4e3878eebffba4, type: 3}
   collisionCooldown: 1
+--- !u!114 &-2686059991954681120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519540495954806225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da170262a004ba78552a0e11a4dc70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pooling.PooledObject

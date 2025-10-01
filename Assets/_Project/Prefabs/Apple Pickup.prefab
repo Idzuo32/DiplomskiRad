@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4012865738868881779}
   - component: {fileID: -831333724236070799}
   - component: {fileID: 4351264338898313520}
+  - component: {fileID: 2937272933354030907}
   m_Layer: 0
   m_Name: Apple Pickup
   m_TagString: Untagged
@@ -72,6 +73,18 @@ MonoBehaviour:
   rotationSpeed: 100
   adjustChangeMoveSpeedAmount: 3
   appleSound: {fileID: 8300000, guid: 1f7e3973a3f271943a2c60054da98de8, type: 3}
+--- !u!114 &2937272933354030907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494851354694396134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da170262a004ba78552a0e11a4dc70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pooling.PooledObject
 --- !u!1 &6421927484150624216
 GameObject:
   m_ObjectHideFlags: 0

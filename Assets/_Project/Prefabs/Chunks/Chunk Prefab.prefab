@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7767305778507742451}
   - component: {fileID: 2975340561237016750}
+  - component: {fileID: 4336828282639613315}
   m_Layer: 0
   m_Name: Chunk Prefab
   m_TagString: Untagged
@@ -50,11 +51,23 @@ MonoBehaviour:
   coinPrefab: {fileID: 4819300812737920837, guid: 3fde679711eb59d4d8a40e2a3d9d4025, type: 3}
   appleSpawnChance: 0.12
   coinSpawnChance: 0.5
-  coinSeperationLength: 2
+  coinSeparationLength: 2
   lanes:
   - -3
   - 0
   - 3
+--- !u!114 &4336828282639613315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4437325663932086182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da170262a004ba78552a0e11a4dc70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pooling.PooledObject
 --- !u!1 &4946903577319340525
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +166,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -174,6 +189,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

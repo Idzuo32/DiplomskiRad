@@ -4994,6 +4994,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3388136647974101693, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2472377075645483042}
+    - targetCorrespondingSourceObject: {fileID: 3388136647974101693, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8148762405792939487}
   m_SourcePrefab: {fileID: 100100000, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
 --- !u!4 &2682374391784434690 stripped
 Transform:
@@ -5194,6 +5197,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8148762405792939487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725064495440541173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da170262a004ba78552a0e11a4dc70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pooling.PooledObject
 --- !u!4 &5242885802757524046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4762049941528157446, guid: f5a57ad4d3d5ff042b61a9d6c9f8bb5d, type: 3}
