@@ -26,7 +26,7 @@ namespace Managers
 
         static ObjectPool GetOrCreatePool(GameObject prefab)
         {
-            if (prefab == null) return null;
+            if (!prefab) return null;
             if (!Pools.TryGetValue(prefab, out var pool))
             {
                 var poolRoot = new GameObject($"Pool - {prefab.name}").transform;
@@ -48,7 +48,6 @@ namespace Managers
         {
             if (go == null) return;
 
-            // Release pooled children first to avoid reactivating stale children with parent reuse
             for (int i = go.transform.childCount - 1; i >= 0; i--)
             {
                 var child = go.transform.GetChild(i).gameObject;
