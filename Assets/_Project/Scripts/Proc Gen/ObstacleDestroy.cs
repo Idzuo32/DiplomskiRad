@@ -5,7 +5,7 @@ namespace ProceduralGeneration
 {
     public class ObstacleDestroy : MonoBehaviour
     {
-        void OnTriggerEnter(Collider other) 
+        void OnTriggerEnter(Collider other)
         {
             PoolManager.Release(other.gameObject);
         }

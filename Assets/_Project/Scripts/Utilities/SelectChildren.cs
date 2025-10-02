@@ -27,7 +27,7 @@ public class SelectChildren : EditorWindow
         if (e.type == EventType.KeyDown && e.keyCode == KeyCode.C && !e.control && !e.alt && !e.shift)
         {
             SelectChildrenOfSelection();
-            e.Use(); 
+            e.Use();
         }
     }
 

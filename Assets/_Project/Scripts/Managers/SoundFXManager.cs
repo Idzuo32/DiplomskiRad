@@ -5,7 +5,6 @@ namespace Managers
 {
     public class SoundFXManager : Singleton<SoundFXManager>
     {
-        
         [SerializeField] AudioSource soundFXObject;
 
         public void PlaySoundFX(AudioClip clip, Transform spawnPoint, float volume)

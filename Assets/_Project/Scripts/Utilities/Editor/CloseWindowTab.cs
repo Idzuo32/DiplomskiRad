@@ -3,18 +3,24 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public static class CloseWindowTab {
+    public static class CloseWindowTab
+    {
         [MenuItem("File/Close Window Tab %w")]
-        static void CloseTab() {
+        static void CloseTab()
+        {
             var focusedWindow = EditorWindow.focusedWindow;
-            if (focusedWindow != null) {
+            if (focusedWindow != null)
+            {
                 CloseTab(focusedWindow);
-            } else {
+            }
+            else
+            {
                 Debug.LogWarning("Found no focused window to close");
             }
         }
 
-        static void CloseTab(EditorWindow editorWindow) {
+        static void CloseTab(EditorWindow editorWindow)
+        {
             editorWindow.Close();
         }
     }

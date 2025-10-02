@@ -7,14 +7,17 @@ namespace Utilities
     /// <summary>
     /// Provides extension methods for various editor functionalities.
     /// </summary>
-    public static class EditorExtensions {
+    public static class EditorExtensions
+    {
         /// <summary>
         /// Checks if a file exists at the specified path and prompts the user for confirmation to overwrite it.
         /// </summary>
         /// <param name="path">The file path to check.</param>
         /// <returns>True if the file does not exist or the user confirms to overwrite it; otherwise, false.</returns>
-        public static bool ConfirmOverwrite(this string path) {
-            if (File.Exists(path)) {
+        public static bool ConfirmOverwrite(this string path)
+        {
+            if (File.Exists(path))
+            {
                 return EditorUtility.DisplayDialog
                 (
                     "File Exists",
@@ -32,7 +35,8 @@ namespace Utilities
         /// </summary>
         /// <param name="defaultPath">The default path to open the folder browser at.</param>
         /// <returns>The selected folder path.</returns>
-        public static string BrowseForFolder(this string defaultPath) {
+        public static string BrowseForFolder(this string defaultPath)
+        {
             return EditorUtility.SaveFolderPanel
             (
                 "Choose Save Path",
@@ -45,7 +49,8 @@ namespace Utilities
         /// Pings and selects the specified asset in the Unity Editor.
         /// </summary>
         /// <param name="asset">The asset to ping and select.</param>
-        public static void PingAndSelect(this Object asset) {
+        public static void PingAndSelect(this Object asset)
+        {
             EditorGUIUtility.PingObject(asset);
             Selection.activeObject = asset;
         }

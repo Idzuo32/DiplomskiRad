@@ -2,8 +2,10 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace Utilties.Editor {
-    class LockInspector : MonoBehaviour {
+namespace Utilties.Editor
+{
+    class LockInspector : MonoBehaviour
+    {
         [MenuItem("Edit/Toggle Inspector Lock %l")]
         public static void Lock()
         {
@@ -15,7 +17,8 @@ namespace Utilties.Editor {
 
                 var transform = (Transform)activeEditor.target;
 
-                var propInfo = transform.GetType().GetProperty("constrainProportionsScale", BindingFlags.NonPublic | BindingFlags.Instance);
+                var propInfo = transform.GetType().GetProperty("constrainProportionsScale",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
                 if (propInfo == null) continue;
 
                 var currentValue = (bool)propInfo.GetValue(transform, null);
@@ -26,7 +29,8 @@ namespace Utilties.Editor {
         }
 
         [MenuItem("Edit/Toggle Inspector Lock %l", true)]
-        public static bool Valid () {
+        public static bool Valid()
+        {
             return ActiveEditorTracker.sharedTracker.activeEditors.Length != 0;
         }
     }

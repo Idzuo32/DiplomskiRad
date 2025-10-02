@@ -8,7 +8,7 @@ namespace Pickups
     {
         [SerializeField] float adjustChangeMoveSpeedAmount = 3f;
         [SerializeField] AudioClip appleSound;
-   
+
 
         protected override void OnPickup()
         {

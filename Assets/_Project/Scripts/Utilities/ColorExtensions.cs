@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Utilities
 {
-    public static class ColorExtensions {
+    public static class ColorExtensions
+    {
         /// <summary>
         /// Sets the alpha component of the color.
         /// </summary>
@@ -36,8 +37,10 @@ namespace Utilities
         /// </summary>
         /// <param name="color">The original color.</param>
         /// <returns>A new color with each component clamped between 0 and 1.</returns>
-        static Color Clamp01(this Color color) {
-            return new Color {
+        static Color Clamp01(this Color color)
+        {
+            return new Color
+            {
                 r = Mathf.Clamp01(color.r),
                 g = Mathf.Clamp01(color.g),
                 b = Mathf.Clamp01(color.b),
@@ -58,8 +61,10 @@ namespace Utilities
         /// </summary>
         /// <param name="hex">The hexadecimal string to convert.</param>
         /// <returns>The Color represented by the hexadecimal string.</returns>
-        public static Color FromHex(this string hex) {
-            if (ColorUtility.TryParseHtmlString(hex, out Color color)) {
+        public static Color FromHex(this string hex)
+        {
+            if (ColorUtility.TryParseHtmlString(hex, out Color color))
+            {
                 return color;
             }
 
@@ -73,7 +78,8 @@ namespace Utilities
         /// <param name="color2">The second color.</param>
         /// <param name="ratio">The blend ratio (0 to 1).</param>
         /// <returns>The blended color.</returns>
-        public static Color Blend(this Color color1, Color color2, float ratio) {
+        public static Color Blend(this Color color1, Color color2, float ratio)
+        {
             ratio = Mathf.Clamp01(ratio);
             return new Color(
                 color1.r * (1 - ratio) + color2.r * ratio,

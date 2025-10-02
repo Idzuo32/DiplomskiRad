@@ -3,7 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 
 public class Rock : MonoBehaviour
-{   
+{
     [SerializeField] ParticleSystem collisionParticleSystem;
     [SerializeField] AudioClip boulderSmashSound;
     [SerializeField] float shakeModifer = 10f;
@@ -13,12 +13,12 @@ public class Rock : MonoBehaviour
 
     float _collisionTimer = 1f;
 
-    void Awake() 
+    void Awake()
     {
         _cinemachineImpulseSource = GetComponent<CinemachineImpulseSource>();
     }
 
-    void Update() 
+    void Update()
     {
         _collisionTimer += Time.deltaTime;
     }
@@ -43,7 +43,7 @@ public class Rock : MonoBehaviour
 
     void CollisionFX(Collision other)
     {
-        var contactPoint  = other.contacts[0];
+        var contactPoint = other.contacts[0];
         collisionParticleSystem.transform.position = contactPoint.point;
         collisionParticleSystem.Play();
         SoundFXManager.Instance.PlaySoundFX(boulderSmashSound, transform, 1f);

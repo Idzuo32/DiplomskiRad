@@ -4,7 +4,8 @@ using System.Linq;
 
 namespace Utilities
 {
-    public static class StringExtensions {
+    public static class StringExtensions
+    {
         /// <summary>Checks if a string is Null or white space</summary>
         public static bool IsNullOrWhiteSpace(this string val) => string.IsNullOrWhiteSpace(val);
 
@@ -21,26 +22,31 @@ namespace Utilities
         /// Shortens a string to the specified maximum length. If the string's length
         /// is less than the maxLength, the original string is returned.
         /// </summary>
-        public static string Shorten(this string val, int maxLength) {
+        public static string Shorten(this string val, int maxLength)
+        {
             if (val.IsBlank()) return val;
             return val.Length <= maxLength ? val : val.Substring(0, maxLength);
         }
 
         /// <summary>Slices a string from the start index to the end index.</summary>
         /// <result>The sliced string.</result>
-        public static string Slice(this string val, int startIndex, int endIndex) {
-            if (val.IsBlank()) {
+        public static string Slice(this string val, int startIndex, int endIndex)
+        {
+            if (val.IsBlank())
+            {
                 throw new ArgumentNullException(nameof(val), "Value cannot be null or empty.");
             }
 
-            if (startIndex < 0 || startIndex > val.Length - 1) {
+            if (startIndex < 0 || startIndex > val.Length - 1)
+            {
                 throw new ArgumentOutOfRangeException(nameof(startIndex));
             }
 
             // If the end index is negative, it will be counted from the end of the string.
             endIndex = endIndex < 0 ? val.Length + endIndex : endIndex;
 
-            if (endIndex < 0 || endIndex < startIndex || endIndex > val.Length) {
+            if (endIndex < 0 || endIndex < startIndex || endIndex > val.Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(endIndex));
             }
 
@@ -56,7 +62,8 @@ namespace Utilities
         /// A new string containing only alphanumeric characters, underscores, and optionally periods.
         /// If the input string is null or empty, an empty string is returned.
         /// </returns>
-        public static string ConvertToAlphanumeric(this string input, bool allowPeriods = false) {
+        public static string ConvertToAlphanumeric(this string input, bool allowPeriods = false)
+        {
             if (string.IsNullOrEmpty(input))
                 return string.Empty;
 
@@ -67,22 +74,25 @@ namespace Utilities
             foreach (char character in input
                          .Where(character => char
                              .IsLetterOrDigit(character) || character == '_' || (allowPeriods && character == '.'))
-                         .Where(character => filteredChars.Count != 0 || (!char.IsDigit(character) && character != '.'))) {
-
+                         .Where(character =>
+                             filteredChars.Count != 0 || (!char.IsDigit(character) && character != '.')))
+            {
                 filteredChars.Add(character);
                 lastValidIndex = filteredChars.Count - 1; // Update lastValidIndex for valid characters
             }
 
             // Remove trailing periods
-            while (lastValidIndex >= 0 && filteredChars[lastValidIndex] == '.') {
+            while (lastValidIndex >= 0 && filteredChars[lastValidIndex] == '.')
+            {
                 lastValidIndex--;
             }
-    
+
             // Return the filtered string
             return lastValidIndex >= 0
-                ? new string(filteredChars.ToArray(), 0, lastValidIndex + 1) : string.Empty;
+                ? new string(filteredChars.ToArray(), 0, lastValidIndex + 1)
+                : string.Empty;
         }
-        
+
         // Rich text formatting, for Unity UI elements that support rich text.
         public static string RichColor(this string text, string color) => $"<color={color}>{text}</color>";
         public static string RichSize(this string text, int size) => $"<size={size}>{text}</size>";
@@ -92,7 +102,10 @@ namespace Utilities
         public static string RichStrikethrough(this string text) => $"<s>{text}</s>";
         public static string RichFont(this string text, string font) => $"<font={font}>{text}</font>";
         public static string RichAlign(this string text, string align) => $"<align={align}>{text}</align>";
-        public static string RichGradient(this string text, string color1, string color2) => $"<gradient={color1},{color2}>{text}</gradient>";
+
+        public static string RichGradient(this string text, string color1, string color2) =>
+            $"<gradient={color1},{color2}>{text}</gradient>";
+
         public static string RichRotation(this string text, float angle) => $"<rotate={angle}>{text}</rotate>";
         public static string RichSpace(this string text, float space) => $"<space={space}>{text}</space>";
     }

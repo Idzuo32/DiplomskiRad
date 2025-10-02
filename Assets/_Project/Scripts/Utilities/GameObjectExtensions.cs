@@ -1,13 +1,16 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Utilities {
-    public static class GameObjectExtensions {
+namespace Utilities
+{
+    public static class GameObjectExtensions
+    {
         /// <summary>
         /// This method is used to hide the GameObject in the Hierarchy view.
         /// </summary>
         /// <param name="gameObject"></param>
-        public static void HideInHierarchy(this GameObject gameObject) {
+        public static void HideInHierarchy(this GameObject gameObject)
+        {
             gameObject.hideFlags = HideFlags.HideInHierarchy;
         }
 
@@ -22,7 +25,8 @@ namespace Utilities {
         /// <typeparam name="T">The type of the component to get or add.</typeparam>
         /// <param name="gameObject">The GameObject to get the component from or add the component to.</param>
         /// <returns>The existing component of the given type, or a new one if no such component exists.</returns>    
-        public static T GetOrAdd<T>(this GameObject gameObject) where T : Component {
+        public static T GetOrAdd<T>(this GameObject gameObject) where T : Component
+        {
             T component = gameObject.GetComponent<T>();
             if (!component) component = gameObject.AddComponent<T>();
 
@@ -47,7 +51,8 @@ namespace Utilities {
         /// Destroys all children of the game object
         /// </summary>
         /// <param name="gameObject">GameObject whose children are to be destroyed.</param>
-        public static void DestroyChildren(this GameObject gameObject) {
+        public static void DestroyChildren(this GameObject gameObject)
+        {
             gameObject.transform.DestroyChildren();
         }
 
@@ -55,7 +60,8 @@ namespace Utilities {
         /// Immediately destroys all children of the given GameObject.
         /// </summary>
         /// <param name="gameObject">GameObject whose children are to be destroyed.</param>
-        public static void DestroyChildrenImmediate(this GameObject gameObject) {
+        public static void DestroyChildrenImmediate(this GameObject gameObject)
+        {
             gameObject.transform.DestroyChildrenImmediate();
         }
 
@@ -63,7 +69,8 @@ namespace Utilities {
         /// Enables all child GameObjects associated with the given GameObject.
         /// </summary>
         /// <param name="gameObject">GameObject whose child GameObjects are to be enabled.</param>
-        public static void EnableChildren(this GameObject gameObject) {
+        public static void EnableChildren(this GameObject gameObject)
+        {
             gameObject.transform.EnableChildren();
         }
 
@@ -71,7 +78,8 @@ namespace Utilities {
         /// Disables all child GameObjects associated with the given GameObject.
         /// </summary>
         /// <param name="gameObject">GameObject whose child GameObjects are to be disabled.</param>
-        public static void DisableChildren(this GameObject gameObject) {
+        public static void DisableChildren(this GameObject gameObject)
+        {
             gameObject.transform.DisableChildren();
         }
 
@@ -79,7 +87,8 @@ namespace Utilities {
         /// Resets the GameObject's transform's position, rotation, and scale to their default values.
         /// </summary>
         /// <param name="gameObject">GameObject whose transformation is to be reset.</param>
-        public static void ResetTransformation(this GameObject gameObject) {
+        public static void ResetTransformation(this GameObject gameObject)
+        {
             gameObject.transform.Reset();
         }
 
@@ -90,7 +99,8 @@ namespace Utilities {
         /// <returns>A string representing the full hierarchical path of this GameObject in the Unity scene.
         /// This is a '/'-separated string where each part is the name of a parent, starting from the root parent and ending
         /// with the name of the specified GameObjects parent.</returns>
-        public static string Path(this GameObject gameObject) {
+        public static string Path(this GameObject gameObject)
+        {
             return "/" + string.Join("/",
                 gameObject.GetComponentsInParent<Transform>().Select(t => t.name).Reverse().ToArray());
         }
@@ -102,7 +112,8 @@ namespace Utilities {
         /// <returns>A string representing the full hierarchical path of this GameObject in the Unity scene.
         /// This is a '/'-separated string where each part is the name of a parent, starting from the root parent and ending
         /// with the name of the specified GameObject itself.</returns>
-        public static string PathFull(this GameObject gameObject) {
+        public static string PathFull(this GameObject gameObject)
+        {
             return gameObject.Path() + "/" + gameObject.name;
         }
 
@@ -111,18 +122,20 @@ namespace Utilities {
         /// </summary>
         /// <param name="gameObject">The GameObject to set layers for.</param>
         /// <param name="layer">The layer number to set for GameObject and all of its descendants.</param>
-        public static void SetLayersRecursively(this GameObject gameObject, int layer) {
+        public static void SetLayersRecursively(this GameObject gameObject, int layer)
+        {
             gameObject.layer = layer;
             gameObject.transform.ForEveryChild(child => child.gameObject.SetLayersRecursively(layer));
         }
-        
+
         /// <summary>
         /// Activates the GameObject associated with the MonoBehaviour and returns the instance.
         /// </summary>
         /// <typeparam name="T">The type of the MonoBehaviour.</typeparam>
         /// <param name="obj">The MonoBehaviour whose GameObject will be activated.</param>
         /// <returns>The instance of the MonoBehaviour.</returns>
-        public static T SetActive<T>(this T obj) where T : MonoBehaviour {
+        public static T SetActive<T>(this T obj) where T : MonoBehaviour
+        {
             obj.gameObject.SetActive(true);
             return obj;
         }
@@ -133,7 +146,8 @@ namespace Utilities {
         /// <typeparam name="T">The type of the MonoBehaviour.</typeparam>
         /// <param name="obj">The MonoBehaviour whose GameObject will be deactivated.</param>
         /// <returns>The instance of the MonoBehaviour.</returns>
-        public static T SetInactive<T>(this T obj) where T : MonoBehaviour {
+        public static T SetInactive<T>(this T obj) where T : MonoBehaviour
+        {
             obj.gameObject.SetActive(false);
             return obj;
         }

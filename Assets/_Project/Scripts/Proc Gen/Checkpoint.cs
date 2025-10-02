@@ -19,13 +19,13 @@ namespace ProceduralGeneration
             _obstacleSpawner = FindFirstObjectByType<ObstacleSpawner>();
         }
 
-        void OnTriggerEnter(Collider other) 
+        void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(PlayerString)) 
+            if (other.CompareTag(PlayerString))
             {
                 _gameManager.IncreaseTime(checkpointTimeExtension);
                 _obstacleSpawner.DecreaseObstacleSpawnTime(obstacleDecreaseTimeAmount);
-            }    
+            }
         }
     }
 }

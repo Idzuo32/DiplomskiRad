@@ -2,11 +2,10 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace UnityUtils {
-    
+namespace UnityUtils
+{
     public static class EditorExtensions
     {
-
         public static bool ConfirmOverwrite(this string path)
         {
             if (File.Exists(path))

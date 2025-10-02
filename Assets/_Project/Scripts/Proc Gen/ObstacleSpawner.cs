@@ -11,7 +11,7 @@ namespace ProceduralGeneration
         [SerializeField] float minObstacleSpawnTime = .2f;
         [SerializeField] Transform obstacleParent;
         [SerializeField] float spawnWidth = 4f;
-        
+
         bool _gameOver;
 
         void Start()
@@ -23,18 +23,19 @@ namespace ProceduralGeneration
         {
             obstacleSpawnTime -= amount;
 
-            if (obstacleSpawnTime <= minObstacleSpawnTime) 
+            if (obstacleSpawnTime <= minObstacleSpawnTime)
             {
                 obstacleSpawnTime = minObstacleSpawnTime;
             }
         }
 
-        IEnumerator SpawnObstacleRoutine() 
+        IEnumerator SpawnObstacleRoutine()
         {
             while (!_gameOver)
             {
                 var obstaclePrefab = obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)];
-                var spawnPosition = new Vector3(Random.Range(-spawnWidth, spawnWidth), transform.position.y, transform.position.z);
+                var spawnPosition = new Vector3(Random.Range(-spawnWidth, spawnWidth), transform.position.y,
+                    transform.position.z);
                 yield return new WaitForSeconds(obstacleSpawnTime);
                 var pooledObstacle = PoolManager.Get(obstaclePrefab, spawnPosition, Random.rotation, obstacleParent);
                 var obstacleRb = pooledObstacle.GetComponent<Rigidbody>();

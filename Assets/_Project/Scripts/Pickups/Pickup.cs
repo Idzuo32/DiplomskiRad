@@ -9,16 +9,16 @@ namespace Pickups
 
         const string PlayerString = "Player";
 
-        void Update() 
+        void Update()
         {
             transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f);
         }
 
-        void OnTriggerEnter(Collider other) 
+        void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(PlayerString)) 
+            if (other.CompareTag(PlayerString))
             {
-                OnPickup();   
+                OnPickup();
                 PoolManager.Release(gameObject);
             }
         }

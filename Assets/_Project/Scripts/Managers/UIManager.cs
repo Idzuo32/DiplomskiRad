@@ -16,7 +16,7 @@ namespace Managers
         {
             InitializeEventSystem();
             SetupPanels();
-    }
+        }
 
         #endregion
 

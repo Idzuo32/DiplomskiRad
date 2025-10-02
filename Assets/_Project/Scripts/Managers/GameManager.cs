@@ -12,11 +12,11 @@ namespace Managers
 
         [SerializeField] AudioClip gameOverSound;
         [SerializeField] AudioClip gameWonSound;
-        
+
         [SerializeField] TMP_Text highScoreText;
-        
+
         [SerializeField] TMP_Text gameOverTitle;
-    
+
         [SerializeField] float startTime = 5f;
         [SerializeField] AudioClip timeIncreasedSound;
 
@@ -45,7 +45,7 @@ namespace Managers
             DecreaseTime();
         }
 
-        public void IncreaseTime(float amount) 
+        public void IncreaseTime(float amount)
         {
             _timeLeft += amount;
             SoundFXManager.Instance.PlaySoundFX(timeIncreasedSound, transform, 1f);
@@ -64,7 +64,7 @@ namespace Managers
             }
         }
 
-        void PlayerGameOver() 
+        void PlayerGameOver()
         {
             GameOver = true;
             SaveSystem.SaveGame();
@@ -82,7 +82,7 @@ namespace Managers
                 highScoreText.text = ScoreManager.Instance.highScore.ToString();
                 gameOverTitle.text = "Too Bad!";
                 SoundFXManager.Instance.PlaySoundFX(gameOverSound, transform, 1f);
-            }           
+            }
         }
     }
 }
