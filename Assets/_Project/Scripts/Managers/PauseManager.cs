@@ -9,12 +9,12 @@ namespace Managers
     {
         bool _isPaused;
 
-        private void OnEnable()
+        void OnEnable()
         {
             InputManager.Instance.MenuOpenCloseEvent += HandlePause;
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
             if (InputManager.Instance != null)
             {

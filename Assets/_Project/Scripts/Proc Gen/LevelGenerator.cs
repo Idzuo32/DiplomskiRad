@@ -40,12 +40,12 @@ namespace ProceduralGeneration
 
         void OnEnable()
         {
-            OnChangeChunkMoveSpeed += ChangeChunMoveSpeed;
+            OnChangeChunkMoveSpeed += ChangeChunkMoveSpeed;
         }
 
         void OnDisable()
         {
-            OnChangeChunkMoveSpeed -= ChangeChunMoveSpeed;
+            OnChangeChunkMoveSpeed -= ChangeChunkMoveSpeed;
         }
 
         void Start()
@@ -68,7 +68,7 @@ namespace ProceduralGeneration
             OnChangeChunkMoveSpeed?.Invoke(speedAmount);
         }
 
-        private void ChangeChunMoveSpeed(float speedAmount)
+        void ChangeChunkMoveSpeed(float speedAmount)
         {
             var newMoveSpeed = moveSpeed + speedAmount;
             newMoveSpeed = Mathf.Clamp(newMoveSpeed, minMoveSpeed, maxMoveSpeed);

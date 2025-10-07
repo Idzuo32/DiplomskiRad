@@ -12,7 +12,7 @@ namespace Player
         Vector2 movement;
         Rigidbody rigidBody;
 
-        void Start()
+        void OnEnable()
         {
             if (InputManager.Instance)
             {
