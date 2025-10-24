@@ -12,7 +12,7 @@ namespace Player
         Vector2 movement;
         Rigidbody rigidBody;
 
-        bool canControl;
+        bool canControl = false;
         void OnEnable()
         {
             if (InputManager.Instance)
@@ -23,6 +23,7 @@ namespace Player
             {
                 GameManager.OnGameStart += HandleGameStart;
                 GameManager.OnGameOver += HandleGameOver;
+                canControl = true;
             }
         }
 
