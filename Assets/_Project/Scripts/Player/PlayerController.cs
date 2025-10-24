@@ -13,17 +13,17 @@ namespace Player
         Rigidbody rigidBody;
 
         bool canControl = false;
+
         void OnEnable()
         {
             if (InputManager.Instance)
             {
-                InputManager.Instance.MoveEvent += i => movement = i;
+                InputManager.Instance.MoveEvent += HandleMove;
             }
             if (GameManager.Instance)
             {
                 GameManager.OnGameStart += HandleGameStart;
                 GameManager.OnGameOver += HandleGameOver;
-                canControl = true;
             }
         }
 
@@ -31,7 +31,7 @@ namespace Player
         {
             if (InputManager.Instance)
             {
-                InputManager.Instance.MoveEvent -= i => movement = i;
+                InputManager.Instance.MoveEvent -= HandleMove;
             }
             if (GameManager.Instance)
             {
@@ -40,9 +40,12 @@ namespace Player
             }
         }
 
+        void HandleMove(Vector2 input) => movement = input;
+
         void HandleGameStart() => canControl = true;
 
         void HandleGameOver() => canControl = false;
+
         void Awake()
         {
             rigidBody = GetComponent<Rigidbody>();
