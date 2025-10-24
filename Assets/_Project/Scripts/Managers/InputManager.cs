@@ -23,6 +23,12 @@ namespace Managers
             controls.Player.Enable();
         }
 
+
+        protected void OnDisable()
+        {
+            controls.Player.Disable();
+        }
+        
         public void OnMove(InputAction.CallbackContext context)
         {
             if (context.performed)
