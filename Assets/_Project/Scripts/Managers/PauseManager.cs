@@ -44,7 +44,7 @@ namespace Managers
             _isPaused = true;
             Time.timeScale = 0;
             UIManager.Instance.ShowPanel("PausePanel");
-            UIManager.Instance.FadeScreen(true, () => Debug.Log("Fade complete"));
+            UIManager.Instance.FadeScreen(true);
         }
 
         void Unpause()

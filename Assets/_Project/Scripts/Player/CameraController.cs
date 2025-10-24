@@ -13,11 +13,11 @@ namespace Player
         [SerializeField] float zoomDuration = 1f;
         [SerializeField] float zoomSpeedModifer = 5f;
 
-        CinemachineCamera _cinemachineCamera;
+        CinemachineCamera cinemachineCamera;
 
         void Awake()
         {
-            _cinemachineCamera = GetComponent<CinemachineCamera>();
+            cinemachineCamera = GetComponent<CinemachineCamera>();
         }
 
         public void ChangeCameraFOV(float speedAmount)
@@ -33,7 +33,7 @@ namespace Player
 
         IEnumerator ChangeFOVRoutine(float speedAmount)
         {
-            var startFOV = _cinemachineCamera.Lens.FieldOfView;
+            var startFOV = cinemachineCamera.Lens.FieldOfView;
             var targetFOV = Mathf.Clamp(startFOV + speedAmount * zoomSpeedModifer, minFOV, maxFOV);
 
             var elapsedTime = 0f;
@@ -43,11 +43,11 @@ namespace Player
                 var t = elapsedTime / zoomDuration;
                 elapsedTime += Time.deltaTime;
 
-                _cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
+                cinemachineCamera.Lens.FieldOfView = Mathf.Lerp(startFOV, targetFOV, t);
                 yield return null;
             }
 
-            _cinemachineCamera.Lens.FieldOfView = targetFOV;
+            cinemachineCamera.Lens.FieldOfView = targetFOV;
         }
     }
 }
