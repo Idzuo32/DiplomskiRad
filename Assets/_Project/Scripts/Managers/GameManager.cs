@@ -1,3 +1,4 @@
+using System;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,8 @@ namespace Managers
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] PlayerController playerController;
+        public static event Action OnGameStart;
+        public static event Action OnGameOver;
         [SerializeField] TMP_Text timeText;
 
         [SerializeField] AudioClip gameOverSound;
@@ -33,11 +35,11 @@ namespace Managers
 
         void StartLevel()
         {
-            playerController.enabled = true;
             GameOver = false;
             startTime = 30f;
             UIManager.Instance.ShowPanel("GamePanel");
             _timeLeft = startTime;
+            OnGameStart?.Invoke();
         }
 
         void Update()
@@ -68,9 +70,9 @@ namespace Managers
         {
             GameOver = true;
             SaveSystem.SaveGame();
-            playerController.enabled = false;
             UIManager.Instance.ShowPanel("GameOverPanel");
             Time.timeScale = 0;
+            OnGameOver?.Invoke();
             if (ScoreManager.Instance.score > ScoreManager.Instance.highScore)
             {
                 highScoreText.text = ScoreManager.Instance.score.ToString();
