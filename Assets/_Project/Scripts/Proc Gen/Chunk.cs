@@ -1,9 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Managers;
+using Utilities;
 
 namespace ProceduralGeneration
 {
+    public enum SpawnType
+    {
+        Fence,
+        Apple,
+        Coin
+    }
     public class Chunk : MonoBehaviour
     {
         [SerializeField] GameObject fencePrefab;
@@ -20,13 +27,43 @@ namespace ProceduralGeneration
 
         void OnEnable()
         {
-            _availableLanes.Clear();
-            _availableLanes.AddRange(new[] { 0, 1, 2 });
-            SpawnFences();
-            SpawnApple();
-            SpawnCoins();
+            ResetAvailableLanes();
+            SpawnObjects();
         }
 
+        void ResetAvailableLanes()
+        {
+            _availableLanes.Clear();
+            _availableLanes.AddRange(new[] { 0, 1, 2 });
+        }
+
+        void SpawnObjects()
+        {
+            var spawnOrders = new List<SpawnType>
+            {
+                SpawnType.Fence,
+                SpawnType.Apple,
+                SpawnType.Coin
+            };
+            spawnOrders.Shuffle();
+
+            foreach (var spawnType in spawnOrders)
+            {
+                switch (spawnType)
+                {
+                    case SpawnType.Fence:
+                        SpawnFences();
+                        break;
+                    case SpawnType.Apple:
+                        SpawnApple();
+                        break;
+                    case SpawnType.Coin:
+                        SpawnCoins();
+                        break;
+                }
+            }
+
+        }
         void SpawnFences()
         {
             var fencesToSpawn = Random.Range(0, lanes.Length - 1);
@@ -38,7 +75,7 @@ namespace ProceduralGeneration
                 var selectedLane = SelectLane();
 
                 var spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-                PoolManager.Get(fencePrefab, spawnPosition, Quaternion.identity, this.transform);
+                PoolManager.Get(fencePrefab, spawnPosition, Quaternion.identity, transform);
             }
         }
 
@@ -49,7 +86,7 @@ namespace ProceduralGeneration
             var selectedLane = SelectLane();
 
             var spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-            PoolManager.Get(applePrefab, spawnPosition, Quaternion.identity, this.transform);
+            PoolManager.Get(applePrefab, spawnPosition, Quaternion.identity, transform);
         }
 
         void SpawnCoins()
