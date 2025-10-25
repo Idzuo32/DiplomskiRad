@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Managers;
 using Player;
 using UnityEngine;
-using Pooling;
 using Random = UnityEngine.Random;
 
 namespace ProceduralGeneration
@@ -18,7 +17,6 @@ namespace ProceduralGeneration
         [SerializeField] GameObject[] chunkPrefabs;
         [SerializeField] GameObject checkpointChunkPrefab;
         [SerializeField] Transform chunkParent;
-        [SerializeField] ScoreManager scoreManager;
 
         [Header("Level Settings")] [Tooltip("The amount of chunks we start with")] [SerializeField]
         int startingChunksAmount = 12;
