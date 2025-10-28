@@ -16,7 +16,7 @@ namespace Managers
 
         void OnDisable()
         {
-            if (InputManager.Instance != null)
+            if (InputManager.HasInstance)
             {
                 InputManager.Instance.MenuOpenCloseEvent -= HandlePause;
             }

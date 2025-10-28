@@ -1,3 +1,4 @@
+using UnityEngine;
 using Utilities;
 
 namespace Managers
@@ -6,6 +7,7 @@ namespace Managers
     {
         public void OnPlayAgainButtonClicked()
         {
+            Time.timeScale = 1f;
             UIManager.Instance.HideAllPanels();
             UIManager.Instance.LoadSceneWithLoadingScreen("MainLevel");
         }

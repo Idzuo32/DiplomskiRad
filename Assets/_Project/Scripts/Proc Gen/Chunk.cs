@@ -9,26 +9,65 @@ namespace ProceduralGeneration
     {
         Fence,
         Apple,
-        Coin
+        Coi1n
     }
     public class Chunk : MonoBehaviour
     {
-        [SerializeField] GameObject fencePrefab;
-        [SerializeField] GameObject applePrefab;
-        [SerializeField] GameObject coinPrefab;
+        [Header("Prefabs")]
+        [SerializeField, Tooltip("Fence obstacle prefab (pooled)")] GameObject fencePrefab;
+        [SerializeField, Tooltip("Apple pickup prefab (pooled)")] GameObject applePrefab;
+        [SerializeField, Tooltip("Coin pickup prefab (pooled)")] GameObject coinPrefab;
 
-        [SerializeField] float appleSpawnChance = .3f;
-        [SerializeField] float coinSpawnChance = .5f;
-        [SerializeField] float coinSeparationLength = 2f;
+        [Header("Spawn Settings")]
+        [SerializeField, Tooltip("Chance [0..1] to spawn an apple on this chunk")] float appleSpawnChance = .3f;
+        [SerializeField, Tooltip("Chance [0..1] to spawn coins on this chunk")] float coinSpawnChance = .5f;
+        [SerializeField, Tooltip("Distance between consecutive coins along Z")] float coinSeparationLength = 2f;
 
-        [SerializeField] float[] lanes = { -2.5f, 0f, 2.5f };
+        [SerializeField, Tooltip("World-space X positions for lanes (left to right)")] float[] lanes = { -2.5f, 0f, 2.5f };
+
+        [Header("Runtime Spawn Root")]
+        [SerializeField, Tooltip("Parent transform for runtime-spawned objects. If not assigned, a child named 'SpawnRoot' will be created at runtime.")]
+        Transform spawnRoot;
 
         readonly List<int> _availableLanes = new() { 0, 1, 2 };
 
+        void Awake()
+        {
+            // Ensure we have a dedicated container for spawned (pooled) content so we don't affect static children.
+            if (spawnRoot == null)
+            {
+                // Try find an existing child named SpawnRoot first
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    var child = transform.GetChild(i);
+                    if (child != null && child.name == "SpawnRoot")
+                    {
+                        spawnRoot = child;
+                        break;
+                    }
+                }
+
+                if (spawnRoot == null)
+                {
+                    var go = new GameObject("SpawnRoot");
+                    spawnRoot = go.transform;
+                    spawnRoot.SetParent(transform, false);
+                }
+            }
+        }
+
         void OnEnable()
         {
+            // Ensure we don't keep previously spawned (pooled) children when this chunk is reused
+            ClearSpawnedChildren();
             ResetAvailableLanes();
             SpawnObjects();
+        }
+
+        void OnDisable()
+        {
+            // Proactively clear children so pooled chunks don't carry objects into next use
+            ClearSpawnedChildren();
         }
 
         void ResetAvailableLanes()
@@ -37,36 +76,32 @@ namespace ProceduralGeneration
             _availableLanes.AddRange(new[] { 0, 1, 2 });
         }
 
-        void SpawnObjects()
+        // Deactivate any previously spawned pooled children to avoid overlap on chunk reuse
+        void ClearSpawnedChildren()
         {
-            var spawnOrders = new List<SpawnType>
+            if (spawnRoot == null) return; // safety
+            for (int i = spawnRoot.childCount - 1; i >= 0; i--)
             {
-                SpawnType.Fence,
-                SpawnType.Apple,
-                SpawnType.Coin
-            };
-            spawnOrders.Shuffle();
-
-            foreach (var spawnType in spawnOrders)
-            {
-                switch (spawnType)
+                var child = spawnRoot.GetChild(i);
+                if (child != null && child.gameObject.activeSelf)
                 {
-                    case SpawnType.Fence:
-                        SpawnFences();
-                        break;
-                    case SpawnType.Apple:
-                        SpawnApple();
-                        break;
-                    case SpawnType.Coin:
-                        SpawnCoins();
-                        break;
+                    child.gameObject.SetActive(false);
                 }
             }
+        }
 
+        void SpawnObjects()
+        {
+            // Deterministic order: fences first so they can occupy up to 2 lanes, then items use remaining lanes
+            SpawnFences();
+            SpawnApple();
+            SpawnCoins();
         }
         void SpawnFences()
         {
-            var fencesToSpawn = Random.Range(0, lanes.Length - 1);
+            // Allow 0..2 lanes for fences (but never exceed available lanes)
+            int maxFenceLanes = Mathf.Min(2, _availableLanes.Count);
+            int fencesToSpawn = Random.Range(0, maxFenceLanes + 1); // inclusive upper bound via +1
 
             for (var i = 0; i < fencesToSpawn; i++)
             {
@@ -75,7 +110,7 @@ namespace ProceduralGeneration
                 var selectedLane = SelectLane();
 
                 var spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-                PoolManager.Get(fencePrefab, spawnPosition, Quaternion.identity, transform);
+                PoolManager.Get(fencePrefab, spawnPosition, Quaternion.identity, spawnRoot);
             }
         }
 
@@ -86,7 +121,7 @@ namespace ProceduralGeneration
             var selectedLane = SelectLane();
 
             var spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, transform.position.z);
-            PoolManager.Get(applePrefab, spawnPosition, Quaternion.identity, transform);
+            PoolManager.Get(applePrefab, spawnPosition, Quaternion.identity, spawnRoot);
         }
 
         void SpawnCoins()
@@ -104,7 +139,7 @@ namespace ProceduralGeneration
             {
                 var spawnPositionZ = topOfChunkZPos - (i * coinSeparationLength);
                 var spawnPosition = new Vector3(lanes[selectedLane], transform.position.y, spawnPositionZ);
-                PoolManager.Get(coinPrefab, spawnPosition, Quaternion.identity, transform);
+                PoolManager.Get(coinPrefab, spawnPosition, Quaternion.identity, spawnRoot);
             }
         }
 

@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Utilities
 {
-    public class Singleton<T> : MonoBehaviour where T : Component
+    /// <summary>
+    /// Scene-bound singleton: will NOT auto-create an instance.
+    /// Use this for managers that require serialized references set in the scene (e.g., UI bindings).
+    /// </summary>
+    public class SceneSingleton<T> : MonoBehaviour where T : Component
     {
         protected static T instance;
 
@@ -15,11 +19,11 @@ namespace Utilities
             {
                 if (!instance)
                 {
-                    instance = FindAnyObjectByType<T>();
+                    instance = Object.FindAnyObjectByType<T>();
                     if (!instance)
                     {
-                        var go = new GameObject(typeof(T).Name + " Auto-Generated");
-                        instance = go.AddComponent<T>();
+                        Debug.LogError($"[SceneSingleton] No instance of {typeof(T).Name} found in the scene. " +
+                                       "This component must be present in the scene with its serialized references assigned.");
                     }
                 }
 
@@ -27,7 +31,6 @@ namespace Utilities
             }
         }
 
-        
         protected virtual void OnEnable()
         {
             InitializeSingleton();

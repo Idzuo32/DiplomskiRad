@@ -20,24 +20,19 @@ namespace Player
             {
                 InputManager.Instance.MoveEvent += HandleMove;
             }
-            if (GameManager.Instance)
-            {
-                GameManager.OnGameStart += HandleGameStart;
-                GameManager.OnGameOver += HandleGameOver;
-            }
+            GameManager.OnGameStart += HandleGameStart;
+            GameManager.OnGameOver += HandleGameOver;
         }
 
-        void OnDisable()
+        void OnDestroy()
         {
-            if (InputManager.Instance)
+            if (InputManager.HasInstance)
             {
                 InputManager.Instance.MoveEvent -= HandleMove;
             }
-            if (GameManager.Instance)
-            {
-                GameManager.OnGameStart -= HandleGameStart;
-                GameManager.OnGameOver -= HandleGameOver;
-            }
+            // Unsubscribe from GameManager static events directly
+            GameManager.OnGameStart -= HandleGameStart;
+            GameManager.OnGameOver -= HandleGameOver;
         }
 
         void HandleMove(Vector2 input) => movement = input;
