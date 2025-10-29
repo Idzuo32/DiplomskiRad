@@ -25,23 +25,7 @@ namespace Managers
 
         public bool GameOver { get; private set; }
 
-        void Awake()
-        {
-            // Validate required serialized references at scene load.
-            if (!timeText) Debug.LogError("[GameManager] 'timeText' is not assigned.", this);
-            if (!highScoreText) Debug.LogError("[GameManager] 'highScoreText' is not assigned.", this);
-            if (!gameOverTitle) Debug.LogError("[GameManager] 'gameOverTitle' is not assigned.", this);
-            if (!timeIncreasedSound) Debug.LogWarning("[GameManager] 'timeIncreasedSound' is not assigned.", this);
-            if (!gameOverSound) Debug.LogWarning("[GameManager] 'gameOverSound' is not assigned.", this);
-            if (!gameWonSound) Debug.LogWarning("[GameManager] 'gameWonSound' is not assigned.", this);
-        }
-
-        void OnDisable()
-        {
-            // Clear static events to avoid dangling listeners across scene reloads
-            OnGameStart = null;
-            OnGameOver = null;
-        }
+        
 
         void Start()
         {
@@ -115,6 +99,12 @@ namespace Managers
                 if (SoundFXManager.HasInstance && gameOverSound)
                     SoundFXManager.Instance.PlaySoundFX(gameOverSound, transform, 1f);
             }
+        }
+        
+        void OnDisable()
+        {
+            OnGameStart = null;
+            OnGameOver = null;
         }
     }
 }

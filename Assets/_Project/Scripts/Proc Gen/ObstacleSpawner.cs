@@ -12,23 +12,33 @@ namespace ProceduralGeneration
         [SerializeField] Transform obstacleParent;
         [SerializeField] float spawnWidth = 4f;
 
+        [Header("Difficulty Balance")]
+        [SerializeField] float initialDecreaseAmount = 0.1f;
+        [SerializeField] float decayRate = 0.8f;
+        [SerializeField] float minimumDecreaseAmount = 0.01f;
+
+        private float currentDecreaseAmount;
+
         bool _gameOver;
 
         void Start()
         {
+            currentDecreaseAmount = initialDecreaseAmount;
             StartCoroutine(SpawnObstacleRoutine());
         }
 
-        public void DecreaseObstacleSpawnTime(float amount)
+        public void DecreaseObstacleSpawnTime()
         {
-            obstacleSpawnTime -= amount;
+            currentDecreaseAmount = Mathf.Max(
+                currentDecreaseAmount * decayRate,
+                minimumDecreaseAmount
+            );
 
-            if (obstacleSpawnTime <= minObstacleSpawnTime)
-            {
-                obstacleSpawnTime = minObstacleSpawnTime;
-            }
+            obstacleSpawnTime = Mathf.Max(
+                obstacleSpawnTime - currentDecreaseAmount,
+                minObstacleSpawnTime
+            );
         }
-
         IEnumerator SpawnObstacleRoutine()
         {
             while (!_gameOver)
