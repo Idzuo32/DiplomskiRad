@@ -21,8 +21,18 @@ namespace ProceduralGeneration
         {
             if (other.CompareTag(PlayerString))
             {
-                GameManager.Instance.IncreaseTime(checkpointTimeExtension);
-                _obstacleSpawner.DecreaseObstacleSpawnTime();
+                if (other.CompareTag(PlayerString))
+                {
+                    if (GameManager.HasInstance)
+                    {
+                        GameManager.Instance.IncreaseTime(checkpointTimeExtension);
+                    }
+
+                    if (_obstacleSpawner)
+                    {
+                        _obstacleSpawner.DecreaseObstacleSpawnTime();
+                    }
+                }
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Player
             GameManager.OnGameOver += HandleGameOver;
         }
 
-        void OnDestroy()
+        void OnDisable()
         {
             if (InputManager.HasInstance)
             {

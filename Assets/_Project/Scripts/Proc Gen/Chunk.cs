@@ -9,7 +9,7 @@ namespace ProceduralGeneration
     {
         Fence,
         Apple,
-        Coi1n
+        Coin
     }
     public class Chunk : MonoBehaviour
     {
