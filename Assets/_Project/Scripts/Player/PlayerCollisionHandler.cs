@@ -15,7 +15,7 @@ namespace Player
         [SerializeField] AudioClip obstacleHitSound;
 
         const string HitString = "Hit";
-        float cooldownTimer;
+        float cooldownTimer = 1f;
 
 
         void Update()

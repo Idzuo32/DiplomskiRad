@@ -21,7 +21,7 @@ namespace Managers
         [SerializeField] float startTime = 5f;
         [SerializeField] AudioClip timeIncreasedSound;
 
-        float _timeLeft;
+        float timeLeft;
 
         public bool GameOver { get; private set; }
 
@@ -41,7 +41,7 @@ namespace Managers
             {
                 UIManager.Instance.ShowPanel("GamePanel");
             }
-            _timeLeft = startTime;
+            timeLeft = startTime;
             OnGameStart?.Invoke();
         }
 
@@ -52,7 +52,7 @@ namespace Managers
 
         public void IncreaseTime(float amount)
         {
-            _timeLeft += amount;
+            timeLeft += amount;
             if (SoundFXManager.HasInstance && timeIncreasedSound)
             {
                 SoundFXManager.Instance.PlaySoundFX(timeIncreasedSound, transform, 1f);
@@ -63,13 +63,13 @@ namespace Managers
         {
             if (GameOver) return;
 
-            _timeLeft -= Time.deltaTime;
+            timeLeft -= Time.deltaTime;
             if (timeText)
             {
-                timeText.text = _timeLeft.ToString("F1");
+                timeText.text = timeLeft.ToString("F1");
             }
 
-            if (_timeLeft <= 0f)
+            if (timeLeft <= 0f)
             {
                 PlayerGameOver();
             }

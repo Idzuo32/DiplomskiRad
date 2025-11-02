@@ -27,12 +27,16 @@ namespace ProceduralGeneration
         [Tooltip("Do not change chunk length value unless chunk prefab size reflects change")] [SerializeField]
         float chunkLength = 10f;
 
-        [SerializeField] float moveSpeed = 8f;
-        [SerializeField] float minMoveSpeed = 2f;
-        [SerializeField] float maxMoveSpeed = 20f;
+        [SerializeField] float moveSpeed = 10f;
+        [SerializeField] float minMoveSpeed = 4f;
+        [SerializeField] float maxMoveSpeed = 16f;
         [SerializeField] float minGravityZ = -22f;
-        [SerializeField] float maxGravityZ = -2f;
-
+        [SerializeField] float maxGravityZ = -6f;
+        
+        public float MoveSpeed => moveSpeed;
+        public float MinMoveSpeed => minMoveSpeed;
+        public float MaxMoveSpeed => maxMoveSpeed;
+        
         Camera cam;
         readonly List<GameObject> chunks = new List<GameObject>();
         int chunksSpawned;
@@ -61,13 +65,7 @@ namespace ProceduralGeneration
         {
             MoveChunks();
         }
-
-        public static void HangleChangeChunkMoveSpeed(float speedAmount)
-        {
-            OnChangeChunkMoveSpeed?.Invoke(speedAmount, 0f);
-        }
-
-        // New overload supporting temporary changes
+        
         public static void HangleChangeChunkMoveSpeed(float speedAmount, float duration)
         {
             OnChangeChunkMoveSpeed?.Invoke(speedAmount, duration);

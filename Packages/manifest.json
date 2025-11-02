@@ -3,6 +3,8 @@
     "com.eflatun.scenereference": "git+https://github.com/starikcetin/Eflatun.SceneReference.git#3.1.1",
     "com.kylewbanks.scenerefattribute": "git+https://github.com/KyleBanks/scene-ref-attribute",
     "com.masyo-lab.favorites-asset": "git+https://github.com/MasyoLab/UnityTools-FavoritesAsset.git?path=Assets/MasyoLab/FavoritesAsset",
+    "com.unity.2d.enhancers": "1.0.0",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.assistant": "1.0.0-pre.12",
     "com.unity.ai.generators": "1.0.0-pre.20",
     "com.unity.ai.inference": "2.3.0",
