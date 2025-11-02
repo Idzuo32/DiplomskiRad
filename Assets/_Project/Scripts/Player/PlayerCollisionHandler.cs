@@ -10,25 +10,26 @@ namespace Player
         [SerializeField] Animator animator;
         [SerializeField] float collisionCooldown = 1f;
         [SerializeField] float adjustChangeMoveSpeedAmount = -2f;
+        [SerializeField, Tooltip("If > 0, slow is temporary and reverts after this duration (seconds). If <= 0, change is permanent.")] 
+        float speedChangeDuration;
         [SerializeField] AudioClip obstacleHitSound;
 
-
         const string HitString = "Hit";
-        float _cooldownTimer;
+        float cooldownTimer;
 
 
         void Update()
         {
-            _cooldownTimer += Time.deltaTime;
+            cooldownTimer += Time.deltaTime;
         }
 
         void OnCollisionEnter()
         {
-            if (_cooldownTimer < collisionCooldown) return;
+            if (cooldownTimer < collisionCooldown) return;
 
-            LevelGenerator.HangleChangeChunkMoveSpeed(adjustChangeMoveSpeedAmount);
+            LevelGenerator.HangleChangeChunkMoveSpeed(adjustChangeMoveSpeedAmount, speedChangeDuration);
             animator.SetTrigger(Hit);
-            _cooldownTimer = 0f;
+            cooldownTimer = 0f;
             SoundFXManager.Instance.PlaySoundFX(obstacleHitSound, transform, 1f);
         }
     }

@@ -617,7 +617,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de5eb5d9de51ff40b0ca09e7a856ef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 994690577}
   scoreText: {fileID: 2081258580}
   finalScoreText: {fileID: 1701082667}
   score: 0
@@ -6005,6 +6004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc69cc2a01feb242a26b1fc79979888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startWithFirstPanel: 0
   firstSelectedButton: {fileID: 1498878538}
   registeredPanels:
   - panelID: GamePanel
@@ -13937,7 +13937,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1671070876}
   collisionCooldown: 1
-  adjustChangeMoveSpeedAmount: -2
+  adjustChangeMoveSpeedAmount: -3
+  speedChangeDuration: 5
   obstacleHitSound: {fileID: 8300000, guid: 7cd5dd563978536459eb2c74193de3bc, type: 3}
 --- !u!114 &1671070873
 MonoBehaviour:
