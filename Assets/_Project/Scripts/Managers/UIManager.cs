@@ -22,12 +22,17 @@ namespace Managers
 
         #region Panel Management
 
+        [SerializeField] bool startWithFirstPanel;
         [SerializeField] GameObject firstSelectedButton; // Default UI focus
         readonly Dictionary<string, GameObject> _panels = new Dictionary<string, GameObject>();
         readonly Stack<GameObject> _panelStack = new Stack<GameObject>(); // For back navigation
 
         [SerializeField] List<UIPanel> registeredPanels = new List<UIPanel>();
 
+        [SerializeField] CanvasGroup screenFader;
+        [SerializeField] float fadeDuration = 1f;
+        [SerializeField] GameObject loadingScreen;
+        [SerializeField] UnityEngine.UI.Slider loadingProgressBar;
         [System.Serializable]
         public class UIPanel
         {
@@ -44,6 +49,10 @@ namespace Managers
                     _panels.Add(panel.panelID, panel.panelObject);
                     panel.panelObject.SetActive(false);
                 }
+            }
+            if (startWithFirstPanel && registeredPanels.Count > 0)
+            {
+                ShowPanel(registeredPanels[0].panelID);
             }
         }
 
@@ -123,11 +132,7 @@ namespace Managers
 
         #endregion
 
-        #region Screen Transitions
-
-        [SerializeField] CanvasGroup screenFader;
-        [SerializeField] float fadeDuration = 1f;
-
+        #region Screen Transitions   
         public void FadeScreen(bool fadeToBlack, UnityAction onComplete = null)
         {
             StartCoroutine(FadeRoutine(fadeToBlack ? 1 : 0, onComplete));
@@ -154,9 +159,6 @@ namespace Managers
         #endregion
 
         #region Scene Loading
-
-        [SerializeField] GameObject loadingScreen;
-        [SerializeField] UnityEngine.UI.Slider loadingProgressBar;
 
         public void LoadSceneWithLoadingScreen(string sceneName)
         {

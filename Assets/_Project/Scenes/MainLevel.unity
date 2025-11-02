@@ -6420,7 +6420,6 @@ MonoBehaviour:
   - {fileID: 4437325663932086182, guid: 8f62c88024afe3245a672aa4c4f252be, type: 3}
   checkpointChunkPrefab: {fileID: 1728840840784026963, guid: 751706759cfaf724998fe139e31a07a8, type: 3}
   chunkParent: {fileID: 1994617646}
-  scoreManager: {fileID: 537642968}
   startingChunksAmount: 12
   checkpointChunkInterval: 8
   chunkLength: 10
@@ -6714,6 +6713,9 @@ MonoBehaviour:
   minObstacleSpawnTime: 0.2
   obstacleParent: {fileID: 1994617646}
   spawnWidth: 4
+  initialDecreaseAmount: 0.1
+  decayRate: 0.8
+  minimumDecreaseAmount: 0.01
 --- !u!4 &853792715
 Transform:
   m_ObjectHideFlags: 0
@@ -7177,7 +7179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a74e5a34e8ed8a43bc8d4d40528bb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 1671070873}
   timeText: {fileID: 721932696}
   gameOverSound: {fileID: 8300000, guid: c29a357c5634a754db83309f263c7fce, type: 3}
   gameWonSound: {fileID: 8300000, guid: df59df911f213c24c9b47b969d36e070, type: 3}

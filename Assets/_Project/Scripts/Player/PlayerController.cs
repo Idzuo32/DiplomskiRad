@@ -30,7 +30,6 @@ namespace Player
             {
                 InputManager.Instance.MoveEvent -= HandleMove;
             }
-            // Unsubscribe from GameManager static events directly
             GameManager.OnGameStart -= HandleGameStart;
             GameManager.OnGameOver -= HandleGameOver;
         }

@@ -12,11 +12,6 @@ namespace Managers
             UIManager.Instance.LoadSceneWithLoadingScreen("MainLevel");
         }
 
-        public void OnAudioButtonClicked()
-        {
-            UIManager.Instance.ShowPanel("AudioPanel");
-        }
-
         public void OnQuitButtonClicked()
         {
 #if UNITY_EDITOR

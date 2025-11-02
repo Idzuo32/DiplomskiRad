@@ -29,6 +29,7 @@ namespace Managers
 
         public void HandlePause()
         {
+            if (GameManager.HasInstance && GameManager.Instance.GameOver) return;
             if (_isPaused)
             {
                 Unpause();

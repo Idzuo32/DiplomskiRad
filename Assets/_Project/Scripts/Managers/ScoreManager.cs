@@ -6,7 +6,7 @@ namespace Managers
 {
     public class ScoreManager : Singleton<ScoreManager>
     {
-        [SerializeField] GameManager gameManager;
+
         [SerializeField] TMP_Text scoreText;
 
         [SerializeField] TMP_Text finalScoreText;
@@ -17,11 +17,12 @@ namespace Managers
         {
             score = 0;
             SaveSystem.LoadGame();
+            finalScoreText.text = highScore.ToString();
         }
 
         public void IncreaseScore(int amount)
         {
-            if (gameManager.GameOver) return;
+            if (GameManager.HasInstance && GameManager.Instance.GameOver) return;
 
             score += amount;
             scoreText.text = score.ToString();
