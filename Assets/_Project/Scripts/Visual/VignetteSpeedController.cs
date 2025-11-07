@@ -31,6 +31,15 @@ namespace Visual
         {
             if (!levelGenerator) return;
             
+            volume = GetComponent<Volume>();
+            if (!volume) return;
+            if (!volume || !volume.profile) return;
+
+            if(!volume.profile.TryGet<Vignette>(out vignette))
+            {
+                Debug.LogWarning($"No Vignette found in Volume profile on {name}.");
+                return;
+            }
             baselineSpeed = levelGenerator.MoveSpeed;
             ApplyForCurrentSpeed();
         }
